@@ -11,6 +11,8 @@ import pl.damiandziura.FuzzyLogic;
 public class MainScreen extends AbstractScreen{
 
     private Car car;
+    private TextButton ButtonMove;
+
     private TextButton ButtonUp;
     private TextButton ButtonDown;
     private TextButton ButtonLeft;
@@ -27,7 +29,6 @@ public class MainScreen extends AbstractScreen{
 
     private void initCar() {
         car = new Car();
-        car.rotateBy(2);
         car.setDebug(true);
 
         stage.addActor(car);
@@ -153,6 +154,25 @@ public class MainScreen extends AbstractScreen{
             }
         });
         stage.addActor(ButtonRotateLeft);
+
+
+        ButtonMove = new TextButton("Move", textButtonStyle);
+        ButtonMove.setWidth(100);
+        ButtonMove.setHeight(30);
+        ButtonMove.setX(10);
+        ButtonMove.setY(535);
+        ButtonMove.setDebug(true);
+
+        ButtonMove.addListener(new ClickListener(){
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                car.Move();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+        stage.addActor(ButtonMove);
     }
 
     @Override
