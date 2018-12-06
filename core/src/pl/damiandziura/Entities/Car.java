@@ -20,10 +20,10 @@ public class Car extends Image {
     public Car() {
         super(new Texture("car.png"));
 
-        this.setOrigin(WIDTH/2, HEIGHT/2);
+        this.setOrigin(WIDTH/2.0f, HEIGHT/2.0f);
         this.setPosition(STARTING_X, STARTING_Y);
 
-        this.setSpeed(5);
+        this.setSpeed(5.0f);
     }
 
     public static void setSpeed(float speed) {

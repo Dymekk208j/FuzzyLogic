@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import pl.damiandziura.Entities.Car;
+import pl.damiandziura.Entities.Place;
 import pl.damiandziura.FuzzyLogic;
 
 
@@ -12,6 +13,7 @@ public class MainScreen extends AbstractScreen{
 
     private Car car;
     private TextButton ButtonMove;
+    private Place place;
 
     private TextButton ButtonUp;
     private TextButton ButtonDown;
@@ -36,8 +38,15 @@ public class MainScreen extends AbstractScreen{
     }
 
     private void init() {
-        initCar();
         initButtons();
+        initPlace();
+        initCar();
+
+    }
+
+    private void initPlace() {
+        place = new Place();
+        stage.addActor(place);
     }
 
     private void initButtons() {
