@@ -12,11 +12,12 @@ public class Car extends Image {
     private final static int WIDTH = 100;
     private final static int HEIGHT = 200;
 
-    private final static int STARTING_X = DEFAULT_WIDTH/2;
-    private final static int STARTING_Y = DEFAULT_HEIGHT - HEIGHT;
+    private int STARTING_X = DEFAULT_WIDTH/2;
+    private int STARTING_Y = DEFAULT_HEIGHT - HEIGHT;
 
     private static float Speed;
 
+    private boolean Moving;
     public Car() {
         super(new Texture("car.png"));
 
@@ -24,6 +25,22 @@ public class Car extends Image {
         this.setPosition(STARTING_X, STARTING_Y);
 
         this.setSpeed(5.0f);
+
+        Moving = false;
+    }
+
+    public Car(int STARTING_X, int STARTING_Y) {
+        super(new Texture("car.png"));
+
+        this.STARTING_X = STARTING_X;
+        this.STARTING_Y = STARTING_Y;
+
+        this.setOrigin(WIDTH/2.0f, HEIGHT/2.0f);
+        this.setPosition(STARTING_X, STARTING_Y);
+
+        this.setSpeed(5.0f);
+
+        Moving = false;
     }
 
     public static void setSpeed(float speed) {
@@ -78,5 +95,17 @@ public class Car extends Image {
         System.out.println("rotation/5.0f: " + rotation/5.0f);
     }
 
+    public boolean isMoving() {
+        return Moving;
+    }
 
+    public void setMoving(boolean moving) {
+        Moving = moving;
+    }
+
+    public void Reset(){
+        this.setMoving(false);
+        this.setPosition(STARTING_X, STARTING_Y);
+        this.setSpeed(5.0f);
+    }
 }
