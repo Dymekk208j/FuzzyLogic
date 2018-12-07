@@ -14,7 +14,10 @@ import pl.damiandziura.FuzzyLogic;
 public class MainScreen extends AbstractScreen{
 
     Image background;
+    Image place;
     private Car car;
+
+
 
     private float time = 0.0f;
 
@@ -28,6 +31,7 @@ public class MainScreen extends AbstractScreen{
         car = new Car();
         car.setDebug(true);
 
+
         stage.addActor(car);
 
     }
@@ -37,8 +41,11 @@ public class MainScreen extends AbstractScreen{
         background.setPosition(0,0);
         stage.addActor(background);
 
-        initButtons();
+        place = new Image(new Texture("car.png"));
+        place.setPosition(700,250);
+        stage.addActor(place);
 
+        initButtons();
         initCar();
 
     }
@@ -158,6 +165,14 @@ public class MainScreen extends AbstractScreen{
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
                // car.RotateLeft();
+               /* car.rotateBy(-10);
+                float rot = car.getRotation();
+                if(rot < 0) rot *= -1;
+                if(rot >= 360) rot = rot - ((int) rot/360)*360;
+                if(rot >= 180) rot = rot -360;
+
+
+                System.out.println(rot);*/
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -193,7 +208,7 @@ public class MainScreen extends AbstractScreen{
 
         if (car.isMoving()) {
             time += delta;
-            if(time >= 0.5){
+            if(time >= 0.3){
                 System.out.println("time: " + time);
                 time = 0.0f;
                 car.Move();

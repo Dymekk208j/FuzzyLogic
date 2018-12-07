@@ -23,7 +23,7 @@ public class Logic {
 
 
     public float Blurring(float angle, float distance) {
-        int i = (int) (angle + 180);
+        int i = (int) (angle + 181);
         int j = (int) distance;
 
         float uL3b = Zb[2][i];

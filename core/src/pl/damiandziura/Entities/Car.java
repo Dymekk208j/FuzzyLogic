@@ -13,7 +13,7 @@ public class Car extends Image {
     private final static int WIDTH = 50;
     private final static int HEIGHT = 100;
 
-    private int STARTING_X = 400;//DEFAULT_WIDTH/2 - WIDTH/2;
+    private int STARTING_X = 350;//DEFAULT_WIDTH/2 - WIDTH/2;
     private int STARTING_Y = DEFAULT_HEIGHT - HEIGHT;
 
     private static float Speed;
@@ -71,12 +71,19 @@ this.setDebug(true);
         this.setX(this.getX() + getSpeed());
 
         float position = this.getX()-100;
-        float blur = logic.Blurring(rotation, position);
-        float rotateBy = Math.round(blur)/2;
+
+        float rot = this.getRotation();
+        if(rot < 0) rot *= -1;
+        if(rot >= 360) rot = rot - ((int) rot/360)*360;
+        if(rot >= 180) rot = rot -360;
+        rot*=-1;
+
+        float blur = logic.Blurring(rot, position);
+        float rotateBy = Math.round(blur);
         this.rotateBy(rotateBy);
 
         System.out.println("---------------------------");
-        System.out.println("rotation: " + rotation);
+        System.out.println("rotation: " + rot);
         System.out.println("distance: " + position);
         System.out.println("rotation Y: " + rotationY);
         System.out.println("rotation X: " + rotationX);
