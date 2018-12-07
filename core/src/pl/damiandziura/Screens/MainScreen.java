@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import pl.damiandziura.Entities.Car;
+import pl.damiandziura.Entities.Logic;
 import pl.damiandziura.Entities.Place;
 import pl.damiandziura.FuzzyLogic;
 
@@ -72,7 +73,7 @@ public class MainScreen extends AbstractScreen{
         stage.addActor(ButtonUp);
 
 
-        ButtonDown = new TextButton("ButtonDown", textButtonStyle);
+        ButtonDown = new TextButton("Logic", textButtonStyle);
         ButtonDown.setWidth(100);
         ButtonDown.setHeight(30);
         ButtonDown.setX(10);
@@ -84,7 +85,9 @@ public class MainScreen extends AbstractScreen{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
-                car.MoveDown();
+                Logic fuzzyLogic = new Logic();
+                float d = fuzzyLogic.Blurring(20f, 1000f);
+                System.out.println("Rozmycie: " + d);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
