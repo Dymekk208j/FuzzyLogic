@@ -10,8 +10,8 @@ public class Place extends Image {
     private final static int WIDTH = 104;
     private final static int HEIGHT = 155;
 
-    private final static int STARTING_X = DEFAULT_WIDTH/2;
-    private final static int STARTING_Y = 0;
+    private final static int STARTING_X = 700 - WIDTH/2;
+    private final static int STARTING_Y = 200-HEIGHT;
 
     public Place() {
         super(new Texture("place.png"));

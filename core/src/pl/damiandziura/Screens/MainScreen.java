@@ -1,7 +1,9 @@
 package pl.damiandziura.Screens;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import pl.damiandziura.Entities.Car;
@@ -11,6 +13,7 @@ import pl.damiandziura.FuzzyLogic;
 
 public class MainScreen extends AbstractScreen{
 
+    Image background;
     private Car car;
 
     private float time = 0.0f;
@@ -30,16 +33,17 @@ public class MainScreen extends AbstractScreen{
     }
 
     private void init() {
+        background = new Image(new Texture("background.png"));
+        background.setPosition(0,0);
+        stage.addActor(background);
+
         initButtons();
-        initPlace();
+
         initCar();
 
     }
 
-    private void initPlace() {
-        Place place = new Place();
-        stage.addActor(place);
-    }
+
 
     private void initButtons() {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -116,7 +120,7 @@ public class MainScreen extends AbstractScreen{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
-                car.MoveRight();
+               // car.MoveRight();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -135,7 +139,7 @@ public class MainScreen extends AbstractScreen{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
-                car.RotateRight();
+               // car.RotateRight();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -153,7 +157,7 @@ public class MainScreen extends AbstractScreen{
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
-                car.RotateLeft();
+               // car.RotateLeft();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -189,7 +193,7 @@ public class MainScreen extends AbstractScreen{
 
         if (car.isMoving()) {
             time += delta;
-            if(time >= 1.0){
+            if(time >= 0.5){
                 System.out.println("time: " + time);
                 time = 0.0f;
                 car.Move();
@@ -200,7 +204,5 @@ public class MainScreen extends AbstractScreen{
 
     private void update() {
         stage.act();
-
-
     }
 }

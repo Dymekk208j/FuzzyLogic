@@ -8,7 +8,7 @@ import java.util.List;
 import static java.lang.Math.min;
 
 public class Logic {
-    private float Zb[][] = new float[7][362];
+    private float Zb[][] = new float[7][363];
     private float Za[][] = new float[7][92];
     private float Zx[][] = new float[7][1202];
     private float Zw[][] = new float[28][92];
@@ -23,7 +23,7 @@ public class Logic {
 
 
     public float Blurring(float angle, float distance) {
-        int i = (int) (angle + 181);
+        int i = (int) (angle + 180);
         int j = (int) distance;
 
         float uL3b = Zb[2][i];
