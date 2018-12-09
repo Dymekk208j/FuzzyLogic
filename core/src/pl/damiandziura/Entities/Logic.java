@@ -25,6 +25,8 @@ public class Logic {
     public float Blurring(float angle, float distance) {
         int i = (int) (angle + 181);
         int j = (int) distance;
+        sumCounter = 0;
+        sumDenominator = 0;
 
         float uL3b = Zb[2][i];
         float uL2b = Zb[3][i];
@@ -54,7 +56,7 @@ public class Logic {
         float h4 = min(uP2b, uDLx);
 
         //R5: If P3 and DL then KL2
-        float h5 = min(uL2b, uDLx);
+        float h5 = min(uP3b, uDLx);
 
         //R6: If L3 and BL then KL2
         float h6 = min(uL3b, uBLx);
@@ -130,7 +132,7 @@ public class Logic {
                 Zw[4][i] = min(Za[6][i], h3);
 
             if (h4 > 0)
-                Zw[5][i] = min(Za[2][i], h4);
+                Zw[5][i] = min(Za[6][i], h4);
 
             if (h5 > 0)
                 Zw[6][i] = min(Za[2][i], h5);
@@ -166,7 +168,7 @@ public class Logic {
                 Zw[16][i] = min(Za[6][i], h15);
 
             if (h16 > 0)
-                Zw[17][i] = min(Za[6][i], h16);
+                Zw[17][i] = min(Za[2][i], h16);
 
             if (h17 > 0)
                 Zw[18][i] = min(Za[2][i], h17);
@@ -313,7 +315,7 @@ public class Logic {
         }
     }
 
-    private void setZa()//TODO: Nie wiem co tutaj trzeba przesłać w argumencie
+    private void setZa()
     {
         for(int i = 1; i < 91; i++) {
             float a = i - 46.0f;

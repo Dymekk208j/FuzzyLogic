@@ -59,7 +59,7 @@ this.setDebug(true);
     }
 
     public void Move()
-    {
+    {//TODO: poprawic ruch samochodu w gore
         float rotation =  this.getRotation();
 
         float rotationY = 9-(rotation/10);
@@ -76,11 +76,11 @@ this.setDebug(true);
         if(rot < 0) rot *= -1;
         if(rot >= 360) rot = rot - ((int) rot/360)*360;
         if(rot >= 180) rot = rot -360;
-        rot*=-1;
+        //rot*=-1;
 
         float blur = logic.Blurring(rot, position);
         float rotateBy = Math.round(blur);
-        this.rotateBy(rotateBy);
+        this.rotateBy(rotateBy/5);
 
         System.out.println("---------------------------");
         System.out.println("rotation: " + rot);
