@@ -1,22 +1,26 @@
 package pl.damiandziura.Screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import pl.damiandziura.Entities.Car;
-import pl.damiandziura.Entities.Place;
 import pl.damiandziura.FuzzyLogic;
 
 
 public class MainScreen extends AbstractScreen{
 
+    private Slider xPosSlider, yPosSlider, AngleSlider;
+    private Label xPosSliderValueLabel, yPosSliderValueLabel, AngleSliderValueLabel;
+
+    private Skin skin;
     private Image background;
     private Image place;
     private Car car;
-
     private float time = 0.0f;
 
     public MainScreen(FuzzyLogic game) {
@@ -26,10 +30,87 @@ public class MainScreen extends AbstractScreen{
     }
 
     private void init() {
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+
         initBackground();
         initPlace();
         initButtons();
         initCar();
+        initSliders();
+
+    }
+
+    private void initSliders() {
+        float xPos = 10;
+        float yPos = 50;
+
+        Label xPosSliderLabel = new Label("Os X", skin);
+        xPosSliderLabel.setPosition(xPos,yPos);
+
+        xPosSlider = new Slider(0, 600, 1, false, skin);
+        xPosSlider.setWidth(300);
+        xPosSlider.setPosition(xPosSliderLabel.getX()+xPosSliderLabel.getWidth()+5, xPosSliderLabel.getY());
+
+        xPosSliderValueLabel = new Label(Float.toString(xPosSlider.getValue()), skin);
+        xPosSliderValueLabel.setPosition(xPosSlider.getX()+xPosSlider.getWidth()+10, xPosSlider.getY());
+
+        stage.addActor(xPosSlider);
+        stage.addActor(xPosSliderLabel);
+        stage.addActor(xPosSliderValueLabel);
+
+        xPosSlider.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                //Gdx.app.log("UITest", "xPosSlider: " + xPosSlider.getValue());
+                xPosSliderValueLabel.setText(Float.toString(xPosSlider.getValue()));
+            }
+        });
+
+        //--------------------------------------------------------------------------------------------------------------
+        yPos = 80;
+
+        Label yPosSliderLabel = new Label("Os Y", skin);
+        yPosSliderLabel.setPosition(xPos,yPos);
+
+        yPosSlider = new Slider(0, 1200, 10, false, skin);
+        yPosSlider.setWidth(300);
+        yPosSlider.setPosition(yPosSliderLabel.getX()+yPosSliderLabel.getWidth()+5, yPosSliderLabel.getY());
+
+        yPosSliderValueLabel = new Label(Float.toString(yPosSlider.getValue()), skin);
+        yPosSliderValueLabel.setPosition(yPosSlider.getX()+yPosSlider.getWidth()+10, yPosSlider.getY());
+
+        stage.addActor(yPosSlider);
+        stage.addActor(yPosSliderLabel);
+        stage.addActor(yPosSliderValueLabel);
+
+        yPosSlider.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                //Gdx.app.log("UITest", "YPosSlider: " + yPosSlider.getValue());
+                yPosSliderValueLabel.setText(Float.toString(yPosSlider.getValue()));
+            }
+        });
+
+        //--------------------------------------------------------------------------------------------------------------
+        yPos = 110;
+
+        Label AngleSliderLabel = new Label("Kat ", skin);
+        AngleSliderLabel.setPosition(xPos,yPos);
+
+        AngleSlider = new Slider(0, 360, 5, false, skin);
+        AngleSlider.setWidth(300);
+        AngleSlider.setPosition(AngleSliderLabel.getX()+AngleSliderLabel.getWidth()+5, AngleSliderLabel.getY());
+
+        AngleSliderValueLabel = new Label(Float.toString(AngleSlider.getValue()), skin);
+        AngleSliderValueLabel.setPosition(AngleSlider.getX()+AngleSlider.getWidth()+10, AngleSlider.getY());
+
+        stage.addActor(AngleSlider);
+        stage.addActor(AngleSliderLabel);
+        stage.addActor(AngleSliderValueLabel);
+
+        AngleSlider.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                AngleSliderValueLabel.setText(Float.toString(AngleSlider.getValue()));
+            }
+        });
     }
 
     private void initBackground() {
@@ -56,12 +137,12 @@ public class MainScreen extends AbstractScreen{
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
 
-        TextButton buttonStartMove = new TextButton("Start moving", textButtonStyle);
+        TextButton buttonStartMove = new TextButton("Start moving", skin);
         buttonStartMove.setWidth(100);
         buttonStartMove.setHeight(30);
         buttonStartMove.setX(10);
         buttonStartMove.setY(500);
-        buttonStartMove.setDebug(true);
+        //buttonStartMove.setDebug(true);
 
         buttonStartMove.addListener(new ClickListener(){
 
@@ -75,12 +156,12 @@ public class MainScreen extends AbstractScreen{
         stage.addActor(buttonStartMove);
 
 
-        TextButton buttonReset = new TextButton("Reset", textButtonStyle);
+        TextButton buttonReset = new TextButton("Reset", skin);
         buttonReset.setWidth(100);
         buttonReset.setHeight(30);
         buttonReset.setX(10);
         buttonReset.setY(430);
-        buttonReset.setDebug(true);
+        //buttonReset.setDebug(true);
 
         buttonReset.addListener(new ClickListener(){
 

@@ -88,7 +88,7 @@ public class Car extends Image {
         this.setY((float)yy);
 
         if (this.getY()<=247){
-           // this.setMoving(false);
+            this.setMoving(false);
         }
     }
 
