@@ -118,7 +118,7 @@ public class MainScreen extends AbstractScreen{
     private void initPlace() {
         place = new Image(new Texture("place.png"));
         place.setSize(Car.WIDTH+5, Car.HEIGHT+5);
-        place.setPosition(700,245);
+        place.setPosition(700,220-place.getHeight());
 
         stage.addActor(place);
     }

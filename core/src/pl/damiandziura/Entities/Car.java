@@ -88,7 +88,7 @@ public class Car extends Image {
         this.setY((float)yy);
 
         if (this.getY()<=247){
-            this.setMoving(false);
+            //this.setMoving(false);
         }
     }
 
@@ -98,6 +98,13 @@ public class Car extends Image {
 
     public void setMoving(boolean moving) {
         Moving = moving;
+    }
+
+    public void changePosition(float x, float y)
+    {
+        if(x > 1200) x = 1200;
+
+        setPosition(x+200, y);
     }
 
     public void Reset(){
