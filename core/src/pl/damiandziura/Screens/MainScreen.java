@@ -36,19 +36,17 @@ public class MainScreen extends AbstractScreen{
         initPlace();
         initButtons();
         initCar();
-        initSliders();
+        initSliders(10, 50, 300);
 
     }
 
-    private void initSliders() {
-        float xPos = 10;
-        float yPos = 50;
+    private void initSliders(float xPos, float yPos, float width) {
 
         Label xPosSliderLabel = new Label("Os X", skin);
         xPosSliderLabel.setPosition(xPos,yPos);
 
         xPosSlider = new Slider(0, 600, 1, false, skin);
-        xPosSlider.setWidth(300);
+        xPosSlider.setWidth(width);
         xPosSlider.setPosition(xPosSliderLabel.getX()+xPosSliderLabel.getWidth()+5, xPosSliderLabel.getY());
 
         xPosSliderValueLabel = new Label(Float.toString(xPosSlider.getValue()), skin);
@@ -60,19 +58,18 @@ public class MainScreen extends AbstractScreen{
 
         xPosSlider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                //Gdx.app.log("UITest", "xPosSlider: " + xPosSlider.getValue());
                 xPosSliderValueLabel.setText(Float.toString(xPosSlider.getValue()));
             }
         });
 
         //--------------------------------------------------------------------------------------------------------------
-        yPos = 80;
+        yPos += 30;
 
         Label yPosSliderLabel = new Label("Os Y", skin);
         yPosSliderLabel.setPosition(xPos,yPos);
 
         yPosSlider = new Slider(0, 1200, 10, false, skin);
-        yPosSlider.setWidth(300);
+        yPosSlider.setWidth(width);
         yPosSlider.setPosition(yPosSliderLabel.getX()+yPosSliderLabel.getWidth()+5, yPosSliderLabel.getY());
 
         yPosSliderValueLabel = new Label(Float.toString(yPosSlider.getValue()), skin);
@@ -84,19 +81,18 @@ public class MainScreen extends AbstractScreen{
 
         yPosSlider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                //Gdx.app.log("UITest", "YPosSlider: " + yPosSlider.getValue());
                 yPosSliderValueLabel.setText(Float.toString(yPosSlider.getValue()));
             }
         });
 
         //--------------------------------------------------------------------------------------------------------------
-        yPos = 110;
+        yPos += 30;
 
         Label AngleSliderLabel = new Label("Kat ", skin);
         AngleSliderLabel.setPosition(xPos,yPos);
 
         AngleSlider = new Slider(0, 360, 5, false, skin);
-        AngleSlider.setWidth(300);
+        AngleSlider.setWidth(width);
         AngleSlider.setPosition(AngleSliderLabel.getX()+AngleSliderLabel.getWidth()+5, AngleSliderLabel.getY());
 
         AngleSliderValueLabel = new Label(Float.toString(AngleSlider.getValue()), skin);
