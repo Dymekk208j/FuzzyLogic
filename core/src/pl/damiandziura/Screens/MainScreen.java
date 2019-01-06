@@ -13,11 +13,9 @@ import pl.damiandziura.FuzzyLogic;
 
 public class MainScreen extends AbstractScreen{
 
-    Image background;
-    Image place;
+    private Image background;
+    private Image place;
     private Car car;
-
-
 
     private float time = 0.0f;
 
@@ -27,30 +25,32 @@ public class MainScreen extends AbstractScreen{
         init();
     }
 
-    private void initCar() {
-        car = new Car();
-        car.setDebug(true);
-
-
-        stage.addActor(car);
-
+    private void init() {
+        initBackground();
+        initPlace();
+        initButtons();
+        initCar();
     }
 
-    private void init() {
+    private void initBackground() {
         background = new Image(new Texture("background.png"));
         background.setPosition(0,0);
         stage.addActor(background);
-
-        place = new Image(new Texture("car.png"));
-        place.setPosition(700,250);
-        stage.addActor(place);
-
-        initButtons();
-        initCar();
-
     }
 
+    private void initPlace() {
+        place = new Image(new Texture("place.png"));
+        place.setSize(Car.WIDTH+5, Car.HEIGHT+5);
+        place.setPosition(700,245);
 
+        stage.addActor(place);
+    }
+
+    private void initCar() {
+        car = new Car();
+        car.setDebug(true);
+        stage.addActor(car);
+    }
 
     private void initButtons() {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -75,28 +75,6 @@ public class MainScreen extends AbstractScreen{
         stage.addActor(buttonStartMove);
 
 
-        TextButton buttonStopMove = new TextButton("Stop moving", textButtonStyle);
-        buttonStopMove.setWidth(100);
-        buttonStopMove.setHeight(30);
-        buttonStopMove.setX(10);
-        buttonStopMove.setY(465);
-        buttonStopMove.setDebug(true);
-
-        buttonStopMove.addListener(new ClickListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
-                //Logic fuzzyLogic = new Logic();
-                //float d = fuzzyLogic.Blurring(20f, 1000f);
-                //System.out.println("Rozmycie: " + d);
-                car.setMoving(false);
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-        stage.addActor(buttonStopMove);
-
-
         TextButton buttonReset = new TextButton("Reset", textButtonStyle);
         buttonReset.setWidth(100);
         buttonReset.setHeight(30);
@@ -114,88 +92,6 @@ public class MainScreen extends AbstractScreen{
             }
         });
         stage.addActor(buttonReset);
-
-        TextButton buttonRight = new TextButton("ButtonRight", textButtonStyle);
-        buttonRight.setWidth(100);
-        buttonRight.setHeight(30);
-        buttonRight.setX(10);
-        buttonRight.setY(395);
-        buttonRight.setDebug(true);
-
-        buttonRight.addListener(new ClickListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
-               // car.MoveRight();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-        stage.addActor(buttonRight);
-
-
-        TextButton buttonRotateRight = new TextButton("RotateRight", textButtonStyle);
-        buttonRotateRight.setWidth(100);
-        buttonRotateRight.setHeight(30);
-        buttonRotateRight.setX(10);
-        buttonRotateRight.setY(360);
-        buttonRotateRight.setDebug(true);
-
-        buttonRotateRight.addListener(new ClickListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
-               // car.RotateRight();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-        stage.addActor(buttonRotateRight);
-
-        TextButton buttonRotateLeft = new TextButton("RotateLeft", textButtonStyle);
-        buttonRotateLeft.setWidth(100);
-        buttonRotateLeft.setHeight(30);
-        buttonRotateLeft.setX(10);
-        buttonRotateLeft.setY(325);
-        buttonRotateLeft.setDebug(true);
-
-        buttonRotateLeft.addListener(new ClickListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
-               // car.RotateLeft();
-               /* car.rotateBy(-10);
-                float rot = car.getRotation();
-                if(rot < 0) rot *= -1;
-                if(rot >= 360) rot = rot - ((int) rot/360)*360;
-                if(rot >= 180) rot = rot -360;
-
-
-                System.out.println(rot);*/
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-        stage.addActor(buttonRotateLeft);
-
-
-        TextButton buttonMove = new TextButton("Move", textButtonStyle);
-        buttonMove.setWidth(100);
-        buttonMove.setHeight(30);
-        buttonMove.setX(10);
-        buttonMove.setY(535);
-        buttonMove.setDebug(true);
-
-        buttonMove.addListener(new ClickListener(){
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-            {
-                car.Move();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-        stage.addActor(buttonMove);
     }
 
     @Override
@@ -208,8 +104,7 @@ public class MainScreen extends AbstractScreen{
 
         if (car.isMoving()) {
             time += delta;
-            if(time >= 0.3){
-                System.out.println("time: " + time);
+            if(time >= 0.15){
                 time = 0.0f;
                 car.Move();
             }
