@@ -97,7 +97,7 @@ public class MainScreen extends AbstractScreen{
         Label AngleSliderLabel = new Label("Kat ", skin);
         AngleSliderLabel.setPosition(xPos,yPos);
 
-        AngleSlider = new Slider(0, 360, 5, false, skin);
+        AngleSlider = new Slider(0, 180, 5, false, skin);
         AngleSlider.setWidth(width);
         AngleSlider.setPosition(AngleSliderLabel.getX()+AngleSliderLabel.getWidth()+5, AngleSliderLabel.getY());
 
@@ -191,6 +191,10 @@ public class MainScreen extends AbstractScreen{
                 float newX = 80 + r.nextFloat() * (900+Car.WIDTH-80);
                 float newY = 80 + r.nextFloat() * (500-Car.HEIGHT-80);
                 float newA = r.nextFloat() * (160);
+                xPosSlider.setValue(newX);
+                yPosSlider.setValue(newY);
+                AngleSlider.setValue(newA);
+
                 car.changePosition(newX, newY);
                 car.setRotation(newA);
 
