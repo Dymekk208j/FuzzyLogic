@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import pl.damiandziura.Entities.Car;
 import pl.damiandziura.FuzzyLogic;
 
+import java.util.Random;
+
 
 public class MainScreen extends AbstractScreen{
 
@@ -109,6 +111,7 @@ public class MainScreen extends AbstractScreen{
         AngleSlider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 AngleSliderValueLabel.setText(Float.toString(AngleSlider.getValue()));
+                car.setRotation(AngleSlider.getValue());
             }
         });
     }
@@ -138,12 +141,11 @@ public class MainScreen extends AbstractScreen{
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
 
-        TextButton buttonStartMove = new TextButton("Start moving", skin);
+        TextButton buttonStartMove = new TextButton("Start", skin);
         buttonStartMove.setWidth(100);
         buttonStartMove.setHeight(30);
         buttonStartMove.setX(10);
         buttonStartMove.setY(500);
-        //buttonStartMove.setDebug(true);
 
         buttonStartMove.addListener(new ClickListener(){
 
@@ -156,13 +158,28 @@ public class MainScreen extends AbstractScreen{
         });
         stage.addActor(buttonStartMove);
 
+        TextButton StopButton = new TextButton("Stop", skin);
+        StopButton.setWidth(100);
+        StopButton.setHeight(30);
+        StopButton.setX(10);
+        StopButton.setY(465);
 
-        TextButton buttonReset = new TextButton("Reset", skin);
+        StopButton.addListener(new ClickListener(){
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+            {
+                car.setMoving(false);
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+        stage.addActor(StopButton);
+
+        TextButton buttonReset = new TextButton("Losuj", skin);
         buttonReset.setWidth(100);
         buttonReset.setHeight(30);
         buttonReset.setX(10);
         buttonReset.setY(430);
-        //buttonReset.setDebug(true);
 
         buttonReset.addListener(new ClickListener(){
 
@@ -170,6 +187,13 @@ public class MainScreen extends AbstractScreen{
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
             {
                 car.Reset();
+                Random r = new Random();
+                float newX = 80 + r.nextFloat() * (900+Car.WIDTH-80);
+                float newY = 80 + r.nextFloat() * (500-Car.HEIGHT-80);
+                float newA = r.nextFloat() * (160);
+                car.changePosition(newX, newY);
+                car.setRotation(newA);
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -196,21 +220,8 @@ public class MainScreen extends AbstractScreen{
 
     private void update() {
         stage.act();
-        //UpdateSliders();
+        xPosSlider.setDisabled(car.isMoving());
+        yPosSlider.setDisabled(car.isMoving());
+        AngleSlider.setDisabled(car.isMoving());
     }
-
-    private void UpdateSliders()
-    {
-        xPosSlider.setValue(car.getX());
-        xPosSliderValueLabel.setText(Float.toString(car.getX()-300));
-
-        yPosSlider.setValue(car.getY());
-        yPosSliderValueLabel.setText(Float.toString(car.getY()-300));
-
-        AngleSlider.setValue(car.getAngle());
-        AngleSliderValueLabel.setText(Float.toString(car.getAngle()));
-        //private Slider xPosSlider, yPosSlider, AngleSlider;
-        //private Label xPosSliderValueLabel, yPosSliderValueLabel, AngleSliderValueLabel;
-    }
-
 }

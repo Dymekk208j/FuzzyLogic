@@ -23,32 +23,14 @@ public class Car extends Image {
     public Car() {
         super(new Texture("car.png"));
 
-        this.setOrigin(WIDTH/2.0f, 0);
+        this.setOrigin(WIDTH/2.0f, HEIGHT/2.0f);
         this.setSize(WIDTH, HEIGHT);
         this.setPosition(STARTING_X, STARTING_Y);
         this.setSpeed(5.0f);
-
-        EndPoint = 200;
+        this.EndPoint = 200;
 
         Moving = false;
         this.setDebug(true);
-        logic = new Logic();
-    }
-
-    public Car(int STARTING_X, int STARTING_Y, float Rotation) {
-        super(new Texture("car.png"));
-
-        this.STARTING_X = STARTING_X;
-        this.STARTING_Y = STARTING_Y;
-
-        this.setOrigin(WIDTH/2.0f, HEIGHT/2.0f);
-        this.setPosition(STARTING_X, STARTING_Y);
-        this.setRotation(Rotation);
-
-        this.setSpeed(5.0f);
-
-        Moving = false;
-
         logic = new Logic();
     }
 
@@ -105,7 +87,7 @@ public class Car extends Image {
 
     public void changePosition(float x, float y)
     {
-        setPosition(x+300, y+300);
+        if(!isMoving())setPosition(x+300, y+300);
     }
 
     public void Reset(){
