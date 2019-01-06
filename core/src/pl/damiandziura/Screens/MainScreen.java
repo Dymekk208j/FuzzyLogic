@@ -40,13 +40,14 @@ public class MainScreen extends AbstractScreen{
 
     }
 
-    private void initSliders(float xPos, float yPos, float width) {
+    private void initSliders(final float xPos, float yPos, float width) {
 
-        Label xPosSliderLabel = new Label("Os X", skin);
+        final Label xPosSliderLabel = new Label("Os X", skin);
         xPosSliderLabel.setPosition(xPos,yPos);
 
-        xPosSlider = new Slider(0, 600, 1, false, skin);
+        xPosSlider = new Slider(0, 900+Car.WIDTH, 1, false, skin);
         xPosSlider.setWidth(width);
+        xPosSlider.setValue(car.getX()-300);
         xPosSlider.setPosition(xPosSliderLabel.getX()+xPosSliderLabel.getWidth()+5, xPosSliderLabel.getY());
 
         xPosSliderValueLabel = new Label(Float.toString(xPosSlider.getValue()), skin);
@@ -58,6 +59,7 @@ public class MainScreen extends AbstractScreen{
 
         xPosSlider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
+                car.changePosition(xPosSlider.getValue(), yPosSlider.getValue());
                 xPosSliderValueLabel.setText(Float.toString(xPosSlider.getValue()));
             }
         });
@@ -68,8 +70,9 @@ public class MainScreen extends AbstractScreen{
         Label yPosSliderLabel = new Label("Os Y", skin);
         yPosSliderLabel.setPosition(xPos,yPos);
 
-        yPosSlider = new Slider(0, 1200, 10, false, skin);
+        yPosSlider = new Slider(0, 500-Car.HEIGHT, 10, false, skin);
         yPosSlider.setWidth(width);
+        yPosSlider.setValue(car.getY()-300);
         yPosSlider.setPosition(yPosSliderLabel.getX()+yPosSliderLabel.getWidth()+5, yPosSliderLabel.getY());
 
         yPosSliderValueLabel = new Label(Float.toString(yPosSlider.getValue()), skin);
@@ -81,6 +84,7 @@ public class MainScreen extends AbstractScreen{
 
         yPosSlider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
+                car.changePosition(xPosSlider.getValue(), yPosSlider.getValue());
                 yPosSliderValueLabel.setText(Float.toString(yPosSlider.getValue()));
             }
         });
@@ -118,13 +122,14 @@ public class MainScreen extends AbstractScreen{
     private void initPlace() {
         place = new Image(new Texture("place.png"));
         place.setSize(Car.WIDTH+5, Car.HEIGHT+5);
-        place.setPosition(700,220-place.getHeight());
+        place.setPosition(800-place.getWidth()/2,200-place.getHeight());
 
         stage.addActor(place);
     }
 
     private void initCar() {
         car = new Car();
+        car.setEndPoint(place.getY());
         car.setDebug(true);
         stage.addActor(car);
     }
@@ -191,5 +196,21 @@ public class MainScreen extends AbstractScreen{
 
     private void update() {
         stage.act();
+        //UpdateSliders();
     }
+
+    private void UpdateSliders()
+    {
+        xPosSlider.setValue(car.getX());
+        xPosSliderValueLabel.setText(Float.toString(car.getX()-300));
+
+        yPosSlider.setValue(car.getY());
+        yPosSliderValueLabel.setText(Float.toString(car.getY()-300));
+
+        AngleSlider.setValue(car.getAngle());
+        AngleSliderValueLabel.setText(Float.toString(car.getAngle()));
+        //private Slider xPosSlider, yPosSlider, AngleSlider;
+        //private Label xPosSliderValueLabel, yPosSliderValueLabel, AngleSliderValueLabel;
+    }
+
 }

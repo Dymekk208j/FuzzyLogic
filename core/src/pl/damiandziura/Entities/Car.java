@@ -17,15 +17,18 @@ public class Car extends Image {
     private int STARTING_Y = 650;
     private static float Speed;
     private static Logic logic;
+    private float EndPoint;
 
     private boolean Moving;
     public Car() {
         super(new Texture("car.png"));
 
         this.setOrigin(WIDTH/2.0f, 0);
-
+        this.setSize(WIDTH, HEIGHT);
         this.setPosition(STARTING_X, STARTING_Y);
         this.setSpeed(5.0f);
+
+        EndPoint = 200;
 
         Moving = false;
         this.setDebug(true);
@@ -72,7 +75,7 @@ public class Car extends Image {
     public void Move()
     {
         float rotation =  this.getRotation();
-        float position = this.getX()-100;
+        float position = this.getX()-(200-(Car.WIDTH/2));
         float Angle = getAngle();
 
 
@@ -87,8 +90,8 @@ public class Car extends Image {
         double yy=(this.getY()-Speed*(Math.cos(Math.toRadians(rotateBy+(-Angle))-Math.sin(Math.toRadians(rotateBy))*Math.cos(Math.toRadians((-Angle))))));
         this.setY((float)yy);
 
-        if (this.getY()<=247){
-            //this.setMoving(false);
+        if (this.getY() <= getEndPoint()){
+            this.setMoving(false);
         }
     }
 
@@ -102,9 +105,7 @@ public class Car extends Image {
 
     public void changePosition(float x, float y)
     {
-        if(x > 1200) x = 1200;
-
-        setPosition(x+200, y);
+        setPosition(x+300, y+300);
     }
 
     public void Reset(){
@@ -112,5 +113,13 @@ public class Car extends Image {
         this.setPosition(STARTING_X, STARTING_Y);
         this.setSpeed(5.0f);
         this.setRotation(0);
+    }
+
+    public float getEndPoint() {
+        return EndPoint;
+    }
+
+    public void setEndPoint(float endPoint) {
+        EndPoint = endPoint+5;
     }
 }
