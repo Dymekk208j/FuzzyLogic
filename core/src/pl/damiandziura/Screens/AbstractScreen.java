@@ -77,10 +77,6 @@ public class AbstractScreen implements Screen {
         game.dispose();
     }
 
-    public boolean isPaused() {
-        return Paused;
-    }
-
     public void setPaused(boolean paused) {
         Paused = paused;
     }

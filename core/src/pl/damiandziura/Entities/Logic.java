@@ -7,9 +7,9 @@ import static java.lang.Math.min;
 
 public class Logic {
     private float Zb[][] = new float[7][363];
-    private float Za[][] = new float[7][92];
+    private float Za[][] = new float[7][142];
     private float Zx[][] = new float[7][1202];
-    private float Zw[][] = new float[28][92];
+    private float Zw[][] = new float[28][142];
     private float sumCounter = 0;
     private float sumDenominator = 0;
 
@@ -37,9 +37,6 @@ public class Logic {
         float uBPx = Zx[5][j];
         float uDPx = Zx[6][j];
 
-        //---------------------------//
-//          reguły           //
-//---------------------------//
 
         //R1: If L3 and DL then KL2
         float h1 = min(uL3b, uDLx);
@@ -116,15 +113,15 @@ public class Logic {
         //R25: If P3 and DP then  KL2
         float h25 = min(uP3b, uDPx);
 
-        for (i = 1; i < 91; i++) {
-            float w = i - 46;
+        for (i = 1; i < 141; i++) {
+            float w = i - 71;
             Zw[1][i] = w;
             if (h1 > 0)
                 Zw[2][i] = min(Za[3][i], h1);
             else
                 Zw[2][i]=0;
             if (h2 > 0)
-                Zw[3][i] = min(Za[4][i], h2);
+                Zw[3][i] = min(Za[5][i], h2);
             else
                 Zw[3][i]=0;
             if (h3 > 0)
@@ -140,7 +137,7 @@ public class Logic {
             else
                 Zw[5][i]=0;
             if (h6 > 0)
-                Zw[7][i] = min(Za[4][i], h6);
+                Zw[7][i] = min(Za[3][i], h6);
             else
                 Zw[7][i]=0;
             if (h7 > 0)
@@ -192,11 +189,11 @@ public class Logic {
             else
                 Zw[19][i]=0;
             if (h19 > 0)
-                Zw[20][i] = min(Za[4][i], h19);
+                Zw[20][i] = min(Za[2][i], h19);
             else
                 Zw[20][i]=0;
             if (h20 > 0)
-                Zw[21][i] = min(Za[6][i], h20);
+                Zw[21][i] = min(Za[5][i], h20);
             else
                 Zw[21][i]=0;
             if (h21 > 0)
@@ -313,13 +310,16 @@ public class Logic {
 
     private void setZa()
     {
-        for(int i = 1; i < 91; i++) {
-            float a = i -46; //a=i-46.0f;
+        for(int i = 1; i < 141; i++) {
+            float a = i -71; //a=i-46.0f;
             Za[1][i] = a;
 
             //KL2 Kierownica mocno w lewo
             float uKL2 = 0;
-            if (a <= -45) uKL2 = 1;
+            //if (a <= -45) uKL2 = 1;
+            if (a<=-45&&a>-70)
+                uKL2=(a-(-70))/(-45-(-70));
+
             else if (a > -45 && a <= -20) uKL2 = (-20 - a) / (-20 - (-45));
             Za[2][i] = uKL2;
 
@@ -344,7 +344,10 @@ public class Logic {
             //KP2 Kierownica mocno w prawo
             float uKP2 = 0;
             if (a >= 20 && a <= 45) uKP2 = (a - 20) / (45 - 20);
-            else if (a >= 45) uKP2 = 1;
+                //else if (a >= 45) uKP2 = 1;
+            else if (a>=45&&a<70)
+                // uKP2=1;
+                uKP2=(70-a)/(70-45);
             Za[6][i] = uKP2;
         }
     }

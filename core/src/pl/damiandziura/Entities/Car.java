@@ -2,24 +2,18 @@ package pl.damiandziura.Entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import java.lang.Math.*;
-import javax.security.auth.login.LoginContext;
-import java.awt.*;
-
-import static pl.damiandziura.FuzzyLogic.DEFAULT_HEIGHT;
-import static pl.damiandziura.FuzzyLogic.DEFAULT_WIDTH;
 
 public class Car extends Image {
     public final static int WIDTH = 50;
     public final static int HEIGHT = 100;
 
-    private int STARTING_X = 1000;//DEFAULT_WIDTH/2 - WIDTH/2;
+    private int STARTING_X = 1000;
     private int STARTING_Y = 650;
     private static float Speed;
     private static Logic logic;
     private float EndPoint;
-
     private boolean Moving;
+
     public Car() {
         super(new Texture("car.png"));
 
@@ -28,19 +22,13 @@ public class Car extends Image {
         this.setPosition(STARTING_X, STARTING_Y);
         this.setSpeed(5.0f);
         this.EndPoint = 200;
-
-        Moving = false;
-        this.setDebug(true);
-        logic = new Logic();
+        this.Moving = false;
+        this.logic = new Logic();
     }
 
     public static void setSpeed(float speed) {
         if(speed <= 0.0f) speed = 0.1f;
         Speed = speed;
-    }
-
-    public static float getSpeed() {
-        return Speed;
     }
 
     public float getAngle() {
@@ -60,11 +48,9 @@ public class Car extends Image {
         float position = this.getX()-(200-(Car.WIDTH/2));
         float Angle = getAngle();
 
-
-
         float blur = logic.Blurring(Angle, (int)position);
         float rotateBy = Math.round(blur);
-        double rotateByNew=Math.round(rotation+(Math.toDegrees(Math.asin((2*Math.sin(Math.toRadians(rotateBy))/10)))));
+        double rotateByNew=Math.round(rotation+(Math.toDegrees(Math.asin((2*Math.sin(Math.toRadians(rotateBy))/50)*Speed))));
 
         setRotation((float)rotateByNew);
         double xx=(this.getX()+Speed*(Math.sin(Math.toRadians(rotateBy+(-Angle))-Math.sin(Math.toRadians(rotateBy))*Math.cos(Math.toRadians((-Angle))))));
